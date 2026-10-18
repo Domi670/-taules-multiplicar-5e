@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prova d'ortografia B/V i H</title>
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--text:#1f2937;--muted:#667085;--blue:#2563eb;--green:#15803d;--red:#b91c1c;--border:#d9e0ea;--yellow:#fff7d6}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+main{max-width:900px;margin:0 auto;padding:18px}
+header{background:linear-gradient(135deg,var(--yellow),#fff);border:1px solid #eadb8a;border-radius:18px;padding:20px;margin-bottom:20px}
+h1{margin:0 0 8px;font-size:clamp(28px,5vw,42px)}
+header p{margin:0;color:var(--muted);font-size:17px;line-height:1.45}
+.progress{margin-top:10px;font-size:14px;color:var(--muted)}
+section{margin:22px 0}
+h2{font-size:22px;margin:0 0 12px}
+.instructions{margin:-4px 0 12px;color:var(--muted);font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:14px}
+.line{display:flex;align-items:center;gap:8px;font-size:22px;font-weight:700;min-width:0}
+.num{width:30px;flex:0 0 30px;font-size:14px;color:var(--muted)}
+input.answer{width:48px;height:48px;border:2px solid #aeb8c6;border-radius:10px;text-align:center;font-size:22px;font-weight:800;background:#fff}
+input.answer:focus{outline:3px solid #cfe0ff;border-color:var(--blue)}
+.feedback{display:none;margin:10px 0 0;font-size:14px;line-height:1.4}
+.card.checked .feedback{display:block}
+.card.correct{border-color:#77c790;background:#f4fff7}
+.card.wrong{border-color:#efa0a0;background:#fff7f7}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+button{min-height:46px;border-radius:11px;padding:12px 18px;font-size:16px;font-weight:800;cursor:pointer}
+.primary{border:0;background:var(--blue);color:#fff}
+.secondary{background:#fff;border:1px solid var(--border);color:var(--text)}
+.result{display:none;margin-top:18px;background:#fff;border:2px solid var(--border);border-radius:16px;padding:18px}
+.score{font-size:32px;font-weight:900;margin-bottom:4px}
+@media(max-width:680px){main{padding:12px}.grid{grid-template-columns:1fr}.line{font-size:20px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>📝 Prova d’ortografia</h1>
+<p><strong>B/V i H</strong> · Completa els buits. Quan acabis, prem <strong>Corregeix la prova</strong>.</p>
+<div id="progress" class="progress">0 / 24 respostes escrites</div>
+</header>
+<form id="quiz" autocomplete="off">
+<section>
+<h2>1. Completa amb B o V</h2>
+<div class="grid" id="bv"></div>
+</section>
+<section>
+<h2>2. Ús de la H</h2>
+<p class="instructions">Escriu <strong>h</strong> si la paraula en porta. Si <strong>no</strong> en porta, <strong>deixa el buit en blanc</strong>.</p>
+<div class="grid" id="h"></div>
+</section>
+<div class="actions">
+<button class="primary" type="submit">Corregeix la prova</button>
+<button class="secondary" type="button" id="restart">Torna a començar</button>
+</div>
+</form>
+<div id="result" class="result" aria-live="polite">
+<div id="score" class="score"></div>
+<div id="message"></div>
+</div>
+</main>
+<script>
+const questions=[
+{g:"bv",a:"b",pre:"com",post:"atiu",word:"combatiu",rule:"Escrivim b darrere de m."},
+{g:"bv",a:"b",pre:"am",post:"iciós",word:"ambiciós",rule:"Escrivim b darrere de m."},
+{g:"bv",a:"b",pre:"ama",post:"le",word:"amable",rule:"Escrivim b davant de l."},
+{g:"bv",a:"b",pre:"a",post:"raçada",word:"abraçada",rule:"Escrivim b davant de r."},
+{g:"bv",a:"b",pre:"sa",post:"er",word:"saber",rule:"De sap a saber: la p canvia a b."},
+{g:"bv",a:"b",pre:"re",post:"re",word:"rebre",rule:"De rep a rebre: la p canvia a b."},
+{g:"bv",a:"v",pre:"con",post:"iure",word:"conviure",rule:"Escrivim v darrere de n."},
+{g:"bv",a:"v",pre:"con",post:"ençut",word:"convençut",rule:"Escrivim v darrere de n."},
+{g:"bv",a:"v",pre:"no",post:"etat",word:"novetat",rule:"De nou a novetat: la u canvia a v."},
+{g:"bv",a:"v",pre:"te",post:"a",word:"teva",rule:"De teu a teva: la u canvia a v."},
+{g:"bv",a:"v",pre:"ha",post:"ia",word:"havia",rule:"Les formes del passat d'haver s'escriuen amb v."},
+{g:"bv",a:"v",pre:"estima",post:"a",word:"estimava",rule:"L'imperfet de la 1a conjugació porta -ava."},
+{g:"bv",a:"v",pre:"somia",post:"en",word:"somiaven",rule:"L'imperfet de la 1a conjugació porta -aven."},
+{g:"h",a:"h",pre:"",post:"ome",word:"home",rule:"Home porta h."},
+{g:"h",a:"h",pre:"",post:"istòria",word:"història",rule:"Història porta h."},
+{g:"h",a:"h",pre:"",post:"ivern",word:"hivern",rule:"Hivern porta h."},
+{g:"h",a:"h",pre:"ve",post:"icle",word:"vehicle",rule:"Vehicle porta h intercalada."},
+{g:"h",a:"h",pre:"des",post:"onest",word:"deshonest",rule:"Deshonest porta h intercalada."},
+{g:"h",a:"h",pre:"pro",post:"ibició",word:"prohibició",rule:"Prohibició porta h intercalada."},
+{g:"h",a:"h",pre:"ex",post:"aurir",word:"exhaurir",rule:"Exhaurir porta h intercalada."},
+{g:"h",a:"",pre:"",post:"avui",word:"avui",rule:"Avui no porta h."},
+{g:"h",a:"",pre:"",post:"amic",word:"amic",rule:"Amic no porta h."},
+{g:"h",a:"",pre:"",post:"ombra",word:"ombra",rule:"Ombra no porta h."},
+{g:"h",a:"",pre:"",post:"ou",word:"ou",rule:"Ou no porta h."}
+];
+function card(q,i){
+  const div=document.createElement("div");
+  div.className="card";
+  div.innerHTML='<div class="line"><span class="num">'+(i+1)+'.</span><span>'+q.pre+'</span><input class="answer" maxlength="1" aria-label="Pregunta '+(i+1)+'"><span>'+q.post+'</span></div><div class="feedback"></div>';
+  const input=div.querySelector("input");
+  input.addEventListener("input",()=>{
+    input.value=input.value.replace(/[^a-zA-Zà-ÿ]/g,"").slice(0,1).toLowerCase();
+    div.classList.remove("checked","correct","wrong");
+    div.querySelector(".feedback").textContent="";
+    updateProgress();
+  });
+  return div;
+}
+questions.forEach((q,i)=>document.getElementById(q.g).appendChild(card(q,i)));
+function updateProgress(){
+  const n=[...document.querySelectorAll(".answer")].filter(x=>x.value.trim()!=="").length;
+  document.getElementById("progress").textContent=n+" / "+questions.length+" respostes escrites";
+}
+document.getElementById("quiz").addEventListener("submit",(e)=>{
+  e.preventDefault();
+  let score=0;
+  const cards=[...document.querySelectorAll(".card")];
+  cards.forEach((c,i)=>{
+    const q=questions[i];
+    const input=c.querySelector("input");
+    const answer=input.value.trim().toLowerCase();
+    const ok=answer===q.a;
+    if(ok) score++;
+    c.classList.add("checked");
+    c.classList.toggle("correct",ok);
+    c.classList.toggle("wrong",!ok);
+    const f=c.querySelector(".feedback");
+    if(ok){f.innerHTML="✅ <strong>Correcte.</strong> "+q.rule;f.style.color="var(--green)";}
+    else{f.innerHTML="❌ La paraula correcta és <strong>"+q.word+"</strong>. "+q.rule;f.style.color="var(--red)";}
+  });
+  const pct=Math.round(score/questions.length*100);
+  document.getElementById("score").textContent=score+" / "+questions.length+" · "+pct+"%";
+  document.getElementById("message").textContent=pct>=90?"Excel·lent! 🌟":pct>=70?"Molt bé! 👏":pct>=50?"Vas pel bon camí 👍":"Cal repassar una mica més.";
+  document.getElementById("result").style.display="block";
+  document.getElementById("result").scrollIntoView({behavior:"smooth",block:"nearest"});
+});
+document.getElementById("restart").addEventListener("click",()=>{
+  document.querySelectorAll(".answer").forEach(x=>x.value="");
+  document.querySelectorAll(".card").forEach(x=>{x.classList.remove("checked","correct","wrong");x.querySelector(".feedback").textContent="";});
+  document.getElementById("result").style.display="none";
+  updateProgress();
+  document.querySelector(".answer").focus();
+});
+updateProgress();
+</script>
+</body>
+</html>
