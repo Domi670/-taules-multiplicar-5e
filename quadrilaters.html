@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Repàs de quadrilàters · 5è</title>
+<style>
+:root{--navy:#173b63;--teal:#69d8d2;--yellow:#ffd966;--green:#7dce82;--red:#ef7d7d;--line:#dce9ef;--muted:#607887}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(#dff9f7,#f7fbfc 360px);color:var(--navy)}
+.wrap{max-width:920px;margin:auto;padding:14px 12px 55px}
+.hero{background:linear-gradient(135deg,#67d8d2,#c9f4f0);border:3px solid #fff;border-radius:28px;padding:22px;text-align:center;box-shadow:0 8px 24px #173b631c}
+.tag{display:inline-block;background:#fff8db;border-radius:999px;padding:8px 15px;font-weight:900}
+h1{font-size:clamp(32px,7vw,56px);margin:9px 0 5px}
+.panel{background:white;border:2px solid var(--line);border-radius:22px;padding:17px;margin:14px 0;box-shadow:0 5px 16px #173b6312}
+.q{background:#f8fbfd;border:2px solid #e1edf2;border-radius:17px;padding:14px;margin:11px 0}
+.q.correct{background:#eaf8ee;border-color:#84cf94}.q.wrong{background:#fff0f0;border-color:#ed9e9e}
+.qtext{font-size:19px;font-weight:900;margin-bottom:10px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{position:relative;border:2px solid #d9e8ee;border-radius:13px;background:#fff;padding:12px;text-align:center;font-size:18px;font-weight:800;cursor:pointer}
+.opt input{position:absolute;opacity:0}.opt.selected{border-color:#39b8b0;background:#ebfbfa}.opt.good{border-color:#74c889;background:#eaf8ee}.opt.bad{border-color:#ea8e8e;background:#fff0f0}
+.feedback{display:none;margin-top:9px;font-weight:800}.feedback.show{display:block}
+.shapes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.shape{min-height:108px;border:2px dashed #c7dfe7;border-radius:15px;background:#fbfdfe;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900}
+.fig{width:68px;height:46px;border:3px solid var(--navy);margin-bottom:8px}
+.square{width:50px;height:50px;background:#8bd26c}.rect{background:#74c4f4}.rhomb{width:48px;height:48px;background:#f48cad;transform:rotate(45deg);margin:9px 0 15px}.para{background:#ffd056;transform:skew(-18deg)}.trap{background:#b495ed;clip-path:polygon(20% 0,80% 0,100% 100%,0 100%)}.irreg{background:#62cfbf;clip-path:polygon(10% 10%,88% 0,100% 90%,0 100%)}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+button{border:0;border-radius:999px;padding:14px 22px;font-size:18px;font-weight:900;cursor:pointer}
+.primary{background:var(--navy);color:#fff}.secondary{background:var(--yellow);color:var(--navy)}
+.result{display:none;padding:18px;border-radius:18px;text-align:center;font-size:22px;font-weight:900}.result.show{display:block}
+.result.ok{background:#e9f8ed;color:#237542}.result.mid{background:#fff7d8;color:#765b00}.result.bad{background:#ffe9e9;color:#9d3030}
+.small{font-size:14px;color:var(--muted);font-weight:650;text-align:center}
+@media(max-width:680px){.options{grid-template-columns:1fr}.shapes{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero">
+<div class="tag">QUADRILÀTERS · AUTOCORREGIBLE · 5è</div>
+<h1>REPASSEM ELS QUADRILÀTERS</h1>
+<p><b>Respon, corregeix i torna-ho a provar.</b></p>
+</section>
+
+<section class="panel">
+<h2>1. Classifiquem</h2>
+<div id="q1" class="q"><div class="qtext">1. Quin quadrilàter té 4 costats iguals i 4 angles rectes?</div><div class="options"><label class="opt"><input type="radio" name="n1" value="Rectangle">Rectangle</label><label class="opt"><input type="radio" name="n1" value="Quadrat">Quadrat</label><label class="opt"><input type="radio" name="n1" value="Rombe">Rombe</label></div><div id="f1" class="feedback"></div></div>
+<div id="q2" class="q"><div class="qtext">2. Quin quadrilàter té només una parella de costats paral·lels?</div><div class="options"><label class="opt"><input type="radio" name="n2" value="Trapezi">Trapezi</label><label class="opt"><input type="radio" name="n2" value="Romboide">Romboide</label><label class="opt"><input type="radio" name="n2" value="Trapezoide">Trapezoide</label></div><div id="f2" class="feedback"></div></div>
+<div id="q3" class="q"><div class="qtext">3. Quin d’aquests NO és un paral·lelogram?</div><div class="options"><label class="opt"><input type="radio" name="n3" value="Rectangle">Rectangle</label><label class="opt"><input type="radio" name="n3" value="Rombe">Rombe</label><label class="opt"><input type="radio" name="n3" value="Trapezi">Trapezi</label></div><div id="f3" class="feedback"></div></div>
+</section>
+
+<section class="panel">
+<h2>2. Reconeixem les figures</h2>
+<div class="shapes">
+<div class="shape"><div class="fig square"></div>Quadrat</div>
+<div class="shape"><div class="fig rect"></div>Rectangle</div>
+<div class="shape"><div class="fig rhomb"></div>Rombe</div>
+<div class="shape"><div class="fig para"></div>Romboide</div>
+<div class="shape"><div class="fig trap"></div>Trapezi</div>
+<div class="shape"><div class="fig irreg"></div>Trapezoide</div>
+</div>
+<div id="q4" class="q"><div class="qtext">4. Quina figura no té cap parella de costats paral·lels?</div><div class="options"><label class="opt"><input type="radio" name="n4" value="Trapezi">Trapezi</label><label class="opt"><input type="radio" name="n4" value="Trapezoide">Trapezoide</label><label class="opt"><input type="radio" name="n4" value="Romboide">Romboide</label></div><div id="f4" class="feedback"></div></div>
+<div id="q5" class="q"><div class="qtext">5. Quina figura té 4 costats iguals però no necessàriament 4 angles rectes?</div><div class="options"><label class="opt"><input type="radio" name="n5" value="Rombe">Rombe</label><label class="opt"><input type="radio" name="n5" value="Rectangle">Rectangle</label><label class="opt"><input type="radio" name="n5" value="Trapezi">Trapezi</label></div><div id="f5" class="feedback"></div></div>
+<div id="q6" class="q"><div class="qtext">6. Quina figura té els costats oposats iguals dos a dos i 4 angles rectes?</div><div class="options"><label class="opt"><input type="radio" name="n6" value="Romboide">Romboide</label><label class="opt"><input type="radio" name="n6" value="Rectangle">Rectangle</label><label class="opt"><input type="radio" name="n6" value="Trapezoide">Trapezoide</label></div><div id="f6" class="feedback"></div></div>
+</section>
+
+<section class="panel">
+<h2>3. Vertader o fals?</h2>
+<div id="q7" class="q"><div class="qtext">7. Tots els quadrats tenen 4 angles rectes.</div><div class="options"><label class="opt"><input type="radio" name="n7" value="Vertader">Vertader</label><label class="opt"><input type="radio" name="n7" value="Fals">Fals</label></div><div id="f7" class="feedback"></div></div>
+<div id="q8" class="q"><div class="qtext">8. Tots els rectangles tenen 4 costats iguals.</div><div class="options"><label class="opt"><input type="radio" name="n8" value="Vertader">Vertader</label><label class="opt"><input type="radio" name="n8" value="Fals">Fals</label></div><div id="f8" class="feedback"></div></div>
+<div id="q9" class="q"><div class="qtext">9. Un romboide té dues parelles de costats paral·lels.</div><div class="options"><label class="opt"><input type="radio" name="n9" value="Vertader">Vertader</label><label class="opt"><input type="radio" name="n9" value="Fals">Fals</label></div><div id="f9" class="feedback"></div></div>
+<div id="q10" class="q"><div class="qtext">10. Un trapezoide té una parella de costats paral·lels.</div><div class="options"><label class="opt"><input type="radio" name="n10" value="Vertader">Vertader</label><label class="opt"><input type="radio" name="n10" value="Fals">Fals</label></div><div id="f10" class="feedback"></div></div>
+</section>
+
+<section class="panel">
+<h2>4. Una mica més difícil</h2>
+<div id="q11" class="q"><div class="qtext">11. Per què un quadrat s’assembla a un rectangle?</div><div class="options"><label class="opt"><input type="radio" name="n11" value="angles">Perquè tots dos tenen 4 angles rectes.</label><label class="opt"><input type="radio" name="n11" value="costats">Perquè tots dos tenen sempre 4 costats iguals.</label><label class="opt"><input type="radio" name="n11" value="cap">Perquè no tenen costats paral·lels.</label></div><div id="f11" class="feedback"></div></div>
+<div id="q12" class="q"><div class="qtext">12. Quin grup està format només per paral·lelograms?</div><div class="options"><label class="opt"><input type="radio" name="n12" value="a">Quadrat, rectangle, rombe i romboide.</label><label class="opt"><input type="radio" name="n12" value="b">Quadrat, trapezi i trapezoide.</label><label class="opt"><input type="radio" name="n12" value="c">Rectangle, trapezi i romboide.</label></div><div id="f12" class="feedback"></div></div>
+</section>
+
+<div class="actions">
+<button id="checkBtn" class="primary">✅ Corregir la prova</button>
+<button id="retryBtn" class="secondary" style="display:none">🔄 Tornar-la a fer</button>
+</div>
+<div id="result" class="result"></div>
+<p class="small">Sense registre. La correcció es fa directament al navegador.</p>
+</div>
+
+<script>
+(function(){
+var answers={
+1:["Quadrat","El quadrat té 4 costats iguals i 4 angles rectes."],
+2:["Trapezi","El trapezi té una sola parella de costats paral·lels."],
+3:["Trapezi","El trapezi no és un paral·lelogram."],
+4:["Trapezoide","El trapezoide no té cap parella de costats paral·lels."],
+5:["Rombe","El rombe té 4 costats iguals, però els angles no han de ser rectes."],
+6:["Rectangle","El rectangle té els costats oposats iguals i 4 angles rectes."],
+7:["Vertader","Correcte: un quadrat sempre té 4 angles rectes."],
+8:["Fals","Un rectangle té els costats iguals dos a dos; no cal que els 4 siguin iguals."],
+9:["Vertader","Correcte: un romboide té dues parelles de costats paral·lels."],
+10:["Fals","El trapezoide no té cap parella de costats paral·lels."],
+11:["angles","S’assemblen perquè tots dos tenen 4 angles rectes i dues parelles de costats paral·lels."],
+12:["a","Quadrat, rectangle, rombe i romboide són paral·lelograms."]
+};
+document.querySelectorAll(".opt").forEach(function(label){
+ label.onclick=function(){
+  var group=label.querySelector("input").name;
+  document.querySelectorAll('input[name="'+group+'"]').forEach(function(inp){inp.parentElement.classList.remove("selected")});
+  label.classList.add("selected");
+  label.querySelector("input").checked=true;
+ };
+});
+function correct(){
+ var score=0;
+ for(var i=1;i<=12;i++){
+  var box=document.getElementById("q"+i),fb=document.getElementById("f"+i),picked=document.querySelector('input[name="n'+i+'"]:checked');
+  box.classList.remove("correct","wrong");
+  document.querySelectorAll('input[name="n'+i+'"]').forEach(function(inp){inp.parentElement.classList.remove("good","bad")});
+  fb.className="feedback show";
+  if(picked&&picked.value===answers[i][0]){
+   score++;box.classList.add("correct");fb.textContent="✅ Correcte! "+answers[i][1];picked.parentElement.classList.add("good");
+  }else{
+   box.classList.add("wrong");fb.textContent="❌ "+answers[i][1];
+   document.querySelectorAll('input[name="n'+i+'"]').forEach(function(inp){if(inp.value===answers[i][0])inp.parentElement.classList.add("good")});
+   if(picked)picked.parentElement.classList.add("bad");
+  }
+ }
+ var r=document.getElementById("result"),pct=Math.round(score/12*100);
+ r.className="result show "+(pct>=85?"ok":pct>=60?"mid":"bad");
+ r.textContent="Has encertat "+score+" de 12 ("+pct+"%).";
+ document.getElementById("retryBtn").style.display="inline-block";
+ document.getElementById("checkBtn").style.display="none";
+ r.scrollIntoView({behavior:"smooth",block:"center"});
+}
+function retry(){
+ document.querySelectorAll('input[type="radio"]').forEach(function(i){i.checked=false});
+ document.querySelectorAll(".opt").forEach(function(o){o.classList.remove("selected","good","bad")});
+ document.querySelectorAll(".q").forEach(function(q){q.classList.remove("correct","wrong")});
+ document.querySelectorAll(".feedback").forEach(function(f){f.className="feedback";f.textContent=""});
+ document.getElementById("result").className="result";document.getElementById("result").textContent="";
+ document.getElementById("retryBtn").style.display="none";document.getElementById("checkBtn").style.display="inline-block";
+ window.scrollTo(0,0);
+}
+document.getElementById("checkBtn").onclick=correct;
+document.getElementById("retryBtn").onclick=retry;
+})();
+</script>
+</body>
+</html>
