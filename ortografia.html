@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Repte d'ortografia · 5è</title>
+<style>
+:root{--navy:#173b63;--teal:#72d8d2;--yellow:#ffd966;--green:#79cf8b;--red:#ee7d7d;--line:#dce9ef;--muted:#607887}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(#dff9f7,#f7fbfc 360px);color:var(--navy)}
+.wrap{max-width:940px;margin:auto;padding:14px 12px 55px}
+.hero{background:linear-gradient(135deg,#68d8d2,#c9f4f0);border:3px solid white;border-radius:28px;padding:22px;text-align:center;box-shadow:0 9px 25px #173b631c}
+.tag{display:inline-block;background:#fff8db;border-radius:999px;padding:8px 15px;font-weight:900}
+h1{font-size:clamp(32px,7vw,56px);margin:9px 0 5px}
+.panel{background:white;border:2px solid var(--line);border-radius:22px;padding:17px;margin:14px 0;box-shadow:0 5px 16px #173b6312}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.mode,.ruleBtn{border:2px solid var(--line);background:#fff;border-radius:17px;padding:14px;text-align:left;color:var(--navy);font-weight:850;cursor:pointer}
+.mode.active,.ruleBtn.active{background:#fff3bd;border-color:#e7c34e}
+.mode strong{display:block;font-size:19px;margin-bottom:4px}
+.mode span,.small{font-size:14px;color:var(--muted)}
+.rules{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.ruleBtn{text-align:center}
+.primary,.secondary,.next{border:0;border-radius:999px;padding:14px 22px;font-size:18px;font-weight:900;cursor:pointer}
+.primary{background:var(--navy);color:#fff}.secondary{background:var(--yellow);color:var(--navy)}.next{background:var(--green);color:#173f25}
+.acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.hidden{display:none!important}
+.intro{background:#f8fbfd;border:2px dashed #bcdce4;border-radius:18px;padding:18px}
+.intro h2{margin:0 0 8px}.intro .rule{font-size:20px;font-weight:850;line-height:1.45}
+.example{margin-top:10px;background:#fff8db;border-radius:13px;padding:11px 13px;font-weight:800}
+.levels{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.lv{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:2px solid #cfe2e9;font-weight:900;background:#fff;color:#839aa7}
+.lv.done{background:#e8f8ed;border-color:#7fce90;color:#267943}.lv.cur{background:var(--yellow);border-color:#e4bd3d;color:#5b4600}
+.cabinet{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}
+.reward{border:2px solid #dce8ef;border-radius:15px;padding:10px;text-align:center;background:#f8fbfd;opacity:.45}
+.reward.unlocked{opacity:1;background:#fff8db;border-color:#e1c04c}
+.ico{font-size:29px;display:block}
+.q{background:#f8fbfd;border:2px solid #e1edf2;border-radius:17px;padding:14px;margin:11px 0}
+.q.ok{background:#eaf8ee;border-color:#84cf94}.q.bad{background:#fff0f0;border-color:#ed9e9e}
+.qtext{font-size:20px;font-weight:900;margin-bottom:10px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{position:relative;border:2px solid #d9e8ee;border-radius:13px;background:#fff;padding:12px;text-align:center;font-size:18px;font-weight:800;cursor:pointer}
+.opt input{position:absolute;opacity:0}.opt.sel{border-color:#39b8b0;background:#ebfbfa}.opt.good{border-color:#74c889;background:#eaf8ee}.opt.wrong{border-color:#ea8e8e;background:#fff0f0}
+.fb{display:none;margin-top:9px;font-weight:800}.fb.show{display:block}
+.res{display:none;margin-top:15px;padding:17px;border-radius:17px;text-align:center;font-size:21px;font-weight:900}.res.show{display:block;background:#f6fbfd}
+.celebrate{font-size:50px;margin:6px}
+.saved{margin-top:10px;padding:10px 12px;border-radius:12px;background:#eef8ff;color:#446879;font-weight:700;font-size:14px}
+.diploma{margin-top:18px;padding:24px;border:6px double #d7b23f;border-radius:20px;background:#fffaf0;text-align:center}
+.diploma h2{font-size:34px;margin:8px 0}.diploma .big{font-size:64px}
+@media(max-width:680px){.mode-grid,.rules,.opts{grid-template-columns:1fr}.cabinet{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body><div class="wrap">
+<section class="hero">
+<div class="tag">ORTOGRAFIA · AUTOCORREGIBLE · 5è</div>
+<h1>REPTE D'ORTOGRAFIA</h1>
+<p>Aprèn la norma, supera els exercicis i omple la teva vitrina.</p>
+</section>
+
+<section id="setup" class="panel">
+<h2>1. Tria el mode</h2>
+<div class="mode-grid">
+<button id="practiceMode" class="mode active"><strong>🎯 Pràctica lliure</strong><span>Tria la norma que vulguis treballar.</span></button>
+<button id="competitionMode" class="mode"><strong>🏆 Repte ortogràfic</strong><span>Avança norma a norma només si fas 10/10.</span></button>
+</div>
+
+<div id="practiceBox">
+<h2 style="margin-top:20px">2. Tria la norma</h2>
+<div id="rules" class="rules"></div>
+</div>
+
+<div id="competitionBox" class="hidden">
+<h2 style="margin-top:20px">2. El teu progrés</h2>
+<div class="saved">💾 El progrés i la vitrina es guarden automàticament en aquest iPad i navegador.</div>
+<div id="levels" class="levels"></div>
+<h3>🏅 La teva vitrina</h3>
+<div id="cabinet" class="cabinet"></div>
+</div>
+
+<div class="acts"><button id="goIntro" class="primary">📘 Veure la norma</button></div>
+</section>
+
+<section id="introPanel" class="panel hidden">
+<div class="intro">
+<div class="tag">ABANS DE COMENÇAR</div>
+<h2 id="introTitle"></h2>
+<div id="introRule" class="rule"></div>
+<div id="introExample" class="example"></div>
+</div>
+<div class="acts">
+<button id="startExercises" class="primary">✏️ Començar els exercicis</button>
+<button id="introBack" class="secondary">↩️ Tornar</button>
+</div>
+</section>
+
+<section id="quizPanel" class="panel hidden">
+<h2 id="quizTitle"></h2>
+<div id="quiz"></div>
+<div class="acts">
+<button id="check" class="primary">✅ Corregir</button>
+<button id="retry" class="secondary hidden">🔄 Tornar-la a fer</button>
+<button id="next" class="next hidden">➡️ Norma següent</button>
+<button id="back" class="secondary">↩️ Canviar de mode</button>
+</div>
+<div id="result" class="res"></div>
+</section>
+
+<p class="small" style="text-align:center">Sense registre. No s'envien dades a cap servidor.</p>
+</div>
+
+<script>
+(function(){
+var KEY="ortografia_5e_progres_v2",mode="practice",selected=0,level=0,qs=[];
+var data=[
+{title:"B i V",rule:"En moltes paraules cal recordar si s'escriu B o V. Una pista útil: després de M escrivim B (també, embolicar) i moltes formes de l'imperfet acabades en -ava s'escriuen amb V (cantava).",example:"Exemples: també · cantava · embolicar · nevar",q:[
+["Quina paraula està ben escrita?",["també","tamvé","tanbé"],"també"],["Completa: canta_a",["v","b","p"],"v"],["Completa: em_olicar",["b","v","p"],"b"],["Quina paraula està ben escrita?",["nevar","nebar","nepar"],"nevar"],["Completa: juga_a",["v","b","f"],"v"],["Quina paraula està ben escrita?",["bambú","vambú","banbú"],"bambú"],["Completa: can_i",["v","b","p"],"v"],["Quina paraula està ben escrita?",["bravo","vrabo","brabo"],"bravo"],["Completa: tre_all",["b","v","p"],"b"],["Quina paraula està ben escrita?",["avió","abió","apió"],"avió"]]},
+{title:"G, J, TG i TJ",rule:"Davant de E i I, el so de J es pot escriure amb G o J segons la paraula. També trobem TG i TJ en mots com metge o platja.",example:"Exemples: girafa · jardí · metge · platja",q:[
+["Quina paraula està ben escrita?",["girafa","jirafa","guirafa"],"girafa"],["Quina paraula està ben escrita?",["jardí","gardí","xardí"],"jardí"],["Completa: met_e",["g","j","tg"],"g"],["Quina paraula està ben escrita?",["platja","plaja","platga"],"platja"],["Completa: _elat",["g","j","tg"],"g"],["Quina paraula està ben escrita?",["joguina","goguina","xoguina"],"joguina"],["Completa: via_e",["t","j","g"],"j"],["Quina paraula està ben escrita?",["genoll","jenoll","guenoll"],"genoll"],["Quina paraula està ben escrita?",["mitjó","migó","mijó"],"mitjó"],["Completa: _ir",["g","j","tg"],"g"]]},
+{title:"C i QU",rule:"Per mantenir el so fort de C davant de E i I, sovint escrivim QU. Davant de A, O i U, normalment n'hi ha prou amb C.",example:"Exemples: casa · cosa · cuina · que · qui",q:[
+["Completa: _asa",["c","qu","k"],"c"],["Completa: _ina",["qu","c","q"],"qu"],["Completa: _eixal",["qu","c","k"],"qu"],["Quina paraula està ben escrita?",["cuina","quina","quinaa"],"cuina"],["Completa: _olze",["c","qu","q"],"c"],["Quina paraula està ben escrita?",["quedar","cedar","qedar"],"quedar"],["Completa: _atre",["qu","c","k"],"qu"],["Quina paraula està ben escrita?",["cullera","qullera","qullera"],"cullera"],["Completa: _ilòmetre",["qu","c","k"],"qu"],["Quina paraula està ben escrita?",["casa","quasa","kasa"],"casa"]]},
+{title:"R i RR",rule:"Entre vocals, una sola R sol sonar suau (cara) i RR sona fort (carro). A principi de paraula, una sola R ja sona forta (roda).",example:"Exemples: cara · carro · roda · torre",q:[
+["Quina paraula està ben escrita?",["carro","caro","carrro"],"carro"],["Completa: to_e",["rr","r","rh"],"rr"],["Quina paraula està ben escrita?",["cara","carra","carhra"],"cara"],["Completa: _oda",["r","rr","rh"],"r"],["Quina paraula està ben escrita?",["sorra","sora","sorhra"],"sorra"],["Completa: pa_a",["r","rr","rh"],"r"],["Quina paraula està ben escrita?",["barri","bari","barrri"],"barri"],["Completa: ca_etera",["rr","r","rh"],"rr"],["Quina paraula està ben escrita?",["marina","marrina","marrína"],"marina"],["Completa: te_a",["rr","r","rh"],"rr"]]},
+{title:"S, SS, C, Ç i Z",rule:"El so de S pot escriure's de maneres diferents. Entre vocals, SS sol representar el so sord (passa). La Ç s'usa davant de A, O i U en paraules com plaça o braç. La Z apareix en mots com zero.",example:"Exemples: passa · plaça · braç · zero · cel",q:[
+["Quina paraula està ben escrita?",["passa","pasa","paça"],"passa"],["Completa: pla_a",["ç","ss","z"],"ç"],["Quina paraula està ben escrita?",["zero","sero","çero"],"zero"],["Completa: bra_",["ç","ss","z"],"ç"],["Quina paraula està ben escrita?",["massa","masa","maça"],"massa"],["Completa: _el",["c","s","z"],"c"],["Quina paraula està ben escrita?",["cinc","sinc","zinc"],"cinc"],["Completa: pa_eig",["ss","s","ç"],"s"],["Quina paraula està ben escrita?",["rossa","rosa","roça"],"rossa"],["Completa: _ebra",["z","s","c"],"z"]]},
+{title:"Accentuació",rule:"Les paraules agudes s'accentuen si acaben en vocal, vocal + S, -EN o -IN. Les planes s'accentuen quan NO acaben així. Les esdrúixoles s'accentuen sempre.",example:"Exemples: camió · fàcil · música",q:[
+["Quina paraula necessita accent?",["camió","camio","camíon"],"camió"],["Quina està ben escrita?",["fàcil","facil","fácil"],"fàcil"],["Quina està ben escrita?",["música","musica","músicà"],"música"],["Quina està ben escrita?",["també","tambe","tàmbe"],"també"],["Quina està ben escrita?",["pàgina","pagina","pagína"],"pàgina"],["Quina està ben escrita?",["arròs","arros","àrròs"],"arròs"],["Quina està ben escrita?",["telèfon","telefon","teléfon"],"telèfon"],["Quina està ben escrita?",["cafè","cafe","càfe"],"cafè"],["Quina està ben escrita?",["màquina","maquina","màquinà"],"màquina"],["Quina està ben escrita?",["jardí","jardi","jàrdi"],"jardí"]]},
+{title:"L'apòstrof",rule:"Els articles EL i LA s'apostrofen davant de paraules que comencen per vocal o H muda: l'avi, l'hora. Hi ha excepcions com la iaia o la universitat.",example:"Exemples: l'avi · l'hora · la iaia · la universitat",q:[
+["Tria la forma correcta:",["l'avi","el avi","la avi"],"l'avi"],["Tria la forma correcta:",["l'hora","la hora","el hora"],"l'hora"],["Tria la forma correcta:",["l'escola","la escola","el escola"],"l'escola"],["Tria la forma correcta:",["la iaia","l'iaia","el iaia"],"la iaia"],["Tria la forma correcta:",["l'arbre","el arbre","la arbre"],"l'arbre"],["Tria la forma correcta:",["l'hivern","el hivern","la hivern"],"l'hivern"],["Tria la forma correcta:",["la universitat","l'universitat","el universitat"],"la universitat"],["Tria la forma correcta:",["l'ocell","el ocell","la ocell"],"l'ocell"],["Tria la forma correcta:",["l'illa","la illa","el illa"],"l'illa"],["Tria la forma correcta:",["l'home","el home","la home"],"l'home"]]},
+{title:"Contraccions",rule:"Quan A, DE o PER es troben amb EL o ELS, sovint formen contraccions: al, als, del, dels, pel, pels. Davant d'una paraula apostrofada, no fem la contracció: a l'escola, de l'avi.",example:"Exemples: al parc · dels nens · pel camí · a l'escola",q:[
+["Tria la forma correcta:",["al parc","a el parc","a'l parc"],"al parc"],["Tria la forma correcta:",["del llibre","de el llibre","d'el llibre"],"del llibre"],["Tria la forma correcta:",["pels carrers","per els carrers","per'ls carrers"],"pels carrers"],["Tria la forma correcta:",["als alumnes","a els alumnes","a'ls alumnes"],"als alumnes"],["Tria la forma correcta:",["dels avis","de els avis","d'els avis"],"dels avis"],["Tria la forma correcta:",["pel camí","per el camí","p'el camí"],"pel camí"],["Tria la forma correcta:",["a l'escola","al escola","a la escola"],"a l'escola"],["Tria la forma correcta:",["de l'avi","del avi","de el avi"],"de l'avi"],["Tria la forma correcta:",["pels boscos","per els boscos","per'ls boscos"],"pels boscos"],["Tria la forma correcta:",["al menjador","a el menjador","a'l menjador"],"al menjador"]]}
+];
+
+var rewards=[["🥉","Explorador/a"],["🥈","Detectiu/va"],["🥇","Corrector/a"],["⭐","Estrella ortogràfica"],["🧠","Cervell lingüístic"],["💎","Diamant de lletres"],["👑","Mestre/a d'ortografia"],["🏆","Gran campió/ona"]];
+
+function load(){try{var v=parseInt(localStorage.getItem(KEY),10);if(v>=0&&v<=data.length)level=v}catch(e){}}
+function save(){try{localStorage.setItem(KEY,String(level))}catch(e){}}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function renderRuleButtons(){var h=document.getElementById("rules");h.innerHTML="";data.forEach(function(r,i){var b=document.createElement("button");b.className="ruleBtn"+(i===selected?" active":"");b.textContent=(i+1)+". "+r.title;b.onclick=function(){selected=i;renderRuleButtons()};h.appendChild(b)})}
+function renderProgress(){var h=document.getElementById("levels");h.innerHTML="";for(var i=0;i<data.length;i++){var d=document.createElement("div");d.className="lv"+(i<level?" done":i===level?" cur":"");d.textContent=i+1;h.appendChild(d)};var c=document.getElementById("cabinet");c.innerHTML="";rewards.forEach(function(r,i){var u=i<level,d=document.createElement("div");d.className="reward"+(u?" unlocked":"");d.innerHTML='<span class="ico">'+(u?r[0]:"🔒")+'</span><strong>'+r[1]+'</strong>';c.appendChild(d)})}
+function currentIndex(){return mode==="competition"?Math.min(level,data.length-1):selected}
+function showIntro(){var i=currentIndex();document.getElementById("introTitle").textContent=(i+1)+". "+data[i].title;document.getElementById("introRule").textContent=data[i].rule;document.getElementById("introExample").textContent=data[i].example;document.getElementById("setup").classList.add("hidden");document.getElementById("quizPanel").classList.add("hidden");document.getElementById("introPanel").classList.remove("hidden");scrollTo(0,0)}
+function buildQuiz(){var i=currentIndex();qs=shuffle(data[i].q.slice());var q=document.getElementById("quiz");q.innerHTML="";qs.forEach(function(item,n){var opts=shuffle(item[1].slice()),d=document.createElement("div");d.className="q";d.id="q"+n;var h='<div class="qtext">'+(n+1)+'. '+item[0]+'</div><div class="opts">';opts.forEach(function(v){var esc=v.replace(/"/g,"&quot;");h+='<label class="opt" data-i="'+n+'" data-v="'+esc+'"><input type="radio" name="n'+n+'" value="'+esc+'">'+v+'</label>'});h+='</div><div id="f'+n+'" class="fb"></div>';d.innerHTML=h;q.appendChild(d)});document.querySelectorAll(".opt").forEach(function(l){l.onclick=function(){var i=l.dataset.i;document.querySelectorAll('.opt[data-i="'+i+'"]').forEach(function(x){x.classList.remove("sel")});l.classList.add("sel");l.querySelector("input").checked=true}})}
+function startExercises(){var i=currentIndex();document.getElementById("quizTitle").textContent=data[i].title+(mode==="competition"?" · 🏆 Repte":"");buildQuiz();document.getElementById("introPanel").classList.add("hidden");document.getElementById("quizPanel").classList.remove("hidden");document.getElementById("result").className="res";document.getElementById("retry").classList.add("hidden");document.getElementById("next").classList.add("hidden");document.getElementById("check").classList.remove("hidden");scrollTo(0,0)}
+function correct(){var score=0;qs.forEach(function(item,i){var right=item[2],box=document.getElementById("q"+i),fb=document.getElementById("f"+i),p=document.querySelector('input[name="n'+i+'"]:checked');box.classList.remove("ok","bad");document.querySelectorAll('.opt[data-i="'+i+'"]').forEach(function(x){x.classList.remove("good","wrong")});if(p&&p.value===right){score++;box.classList.add("ok");fb.className="fb show";fb.textContent="✅ Correcte!"}else{box.classList.add("bad");fb.className="fb show";fb.textContent="❌ La resposta correcta és: "+right;document.querySelectorAll('.opt[data-i="'+i+'"]').forEach(function(x){if(x.dataset.v===right)x.classList.add("good");if(p&&x.dataset.v===p.value)x.classList.add("wrong")})}});
+var r=document.getElementById("result");r.className="res show";
+if(score===10){
+ if(mode==="competition"){
+   if(level===data.length-1){
+     r.innerHTML='<div class="diploma"><div class="big">🏆</div><h2>Mestre/a d’Ortografia</h2><p>Has superat totes les normes amb èxit!</p><div style="font-size:38px">🎉 ✨ 🎉</div></div>';
+     level=data.length;save();renderProgress();
+   }else{
+     r.innerHTML='<div class="celebrate">'+rewards[level][0]+'</div>Has aconseguit <b>'+rewards[level][1]+'</b>!<br>Ja pots passar a la norma següent.';
+     document.getElementById("next").classList.remove("hidden");
+   }
+ }else{
+   r.textContent="🎉 Perfecte! 10 de 10.";
+   document.getElementById("retry").classList.remove("hidden");
+ }
+}else{
+ r.textContent="Has encertat "+score+" de 10. Revisa els errors i torna-la a fer.";
+ document.getElementById("retry").classList.remove("hidden");
+}
+document.getElementById("check").classList.add("hidden");r.scrollIntoView({behavior:"smooth"})
+}
+function setMode(m){mode=m;document.getElementById("practiceMode").classList.toggle("active",m==="practice");document.getElementById("competitionMode").classList.toggle("active",m==="competition");document.getElementById("practiceBox").classList.toggle("hidden",m!=="practice");document.getElementById("competitionBox").classList.toggle("hidden",m!=="competition");renderProgress()}
+document.getElementById("practiceMode").onclick=function(){setMode("practice")};
+document.getElementById("competitionMode").onclick=function(){setMode("competition")};
+document.getElementById("goIntro").onclick=showIntro;
+document.getElementById("startExercises").onclick=startExercises;
+document.getElementById("introBack").onclick=function(){document.getElementById("introPanel").classList.add("hidden");document.getElementById("setup").classList.remove("hidden")};
+document.getElementById("check").onclick=correct;
+document.getElementById("retry").onclick=showIntro;
+document.getElementById("next").onclick=function(){if(mode==="competition"&&level<data.length-1){level++;save();renderProgress();showIntro()}};
+document.getElementById("back").onclick=function(){document.getElementById("quizPanel").classList.add("hidden");document.getElementById("setup").classList.remove("hidden");renderProgress();scrollTo(0,0)};
+load();renderRuleButtons();renderProgress();
+})();
+</script>
+</body></html>
