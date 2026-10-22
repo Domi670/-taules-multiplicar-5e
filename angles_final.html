@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mesura d’angles · 5è</title>
+<style>
+:root{--navy:#173b63;--teal:#69d8d2;--yellow:#ffd966;--green:#e9f8ed;--red:#fff0f0;--line:#dce9ef;--muted:#607887}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(#dff9f7,#f7fbfc 360px);color:var(--navy)}
+.wrap{max-width:900px;margin:auto;padding:14px 12px 55px}
+.hero{background:linear-gradient(135deg,#67d8d2,#c9f4f0);border:3px solid white;border-radius:28px;padding:22px;text-align:center}
+.tag{display:inline-block;background:#fff8db;border-radius:999px;padding:8px 15px;font-weight:900}
+h1{font-size:clamp(32px,7vw,52px);margin:9px 0 5px}
+.panel,.q{background:#fff;border:2px solid var(--line);border-radius:20px;padding:17px;margin:14px 0}
+.q.correct{background:var(--green);border-color:#84cf94}.q.wrong{background:var(--red);border-color:#ed9e9e}
+.q h3{margin:0 0 12px;font-size:19px}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.option{display:flex;align-items:center;gap:10px;border:2px solid #d9e8ee;border-radius:13px;padding:12px;background:#fff;font-weight:800;cursor:pointer}
+.option:has(input:checked){border-color:#39b8b0;background:#ebfbfa}
+input[type=radio]{width:22px;height:22px;accent-color:#2aa9a2;flex:none}
+.feedback{display:none;margin-top:10px;font-weight:800}.feedback.show{display:block}
+.anglebox{display:flex;justify-content:center;background:#fff;border:1px solid #e2edf1;border-radius:14px;padding:10px;margin:10px 0}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+button{border:0;border-radius:999px;padding:14px 22px;font-size:18px;font-weight:900;cursor:pointer}
+.primary{background:var(--navy);color:#fff}.secondary{background:var(--yellow);color:var(--navy)}
+.result{display:none;padding:18px;border-radius:18px;text-align:center;font-size:22px;font-weight:900;background:#fff7d8}
+.small{font-size:14px;color:var(--muted)}
+@media(max-width:680px){.options{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero">
+<div class="tag">MATEMÀTIQUES · 5è · AUTOCORREGIBLE</div>
+<h1>📐 MESURA D’ANGLES</h1>
+<p><b>Mesura, classifica i interpreta angles.</b></p>
+</section>
+
+<section class="panel">
+<p>Respon les 15 preguntes i prem <b>Corregeix la prova</b>. No cal registrar-se.</p>
+<div id="count" class="small">0 de 15 respostes</div>
+</section>
+
+<form id="quiz" autocomplete="off">
+
+<article class="q" data-answer="90°">
+<h3>1. Quant mesura un angle recte?</h3>
+<div class="options">
+<label class="option"><input type="radio" name="q1" value="90°">90°</label>
+<label class="option"><input type="radio" name="q1" value="45°">45°</label>
+<label class="option"><input type="radio" name="q1" value="180°">180°</label>
+<label class="option"><input type="radio" name="q1" value="100°">100°</label>
+</div><div class="feedback">Un angle recte mesura exactament 90°.</div>
+</article>
+
+<article class="q" data-answer="Agut">
+<h3>2. Quin tipus d’angle mesura 35°?</h3>
+<div class="options">
+<label class="option"><input type="radio" name="q2" value="Agut">Agut</label>
+<label class="option"><input type="radio" name="q2" value="Recte">Recte</label>
+<label class="option"><input type="radio" name="q2" value="Obtús">Obtús</label>
+<label class="option"><input type="radio" name="q2" value="Pla">Pla</label>
+</div><div class="feedback">És menor que 90°, per tant és agut.</div>
+</article>
+
+<article class="q" data-answer="Obtús">
+<h3>3. Quin tipus d’angle mesura 125°?</h3>
+<div class="options">
+<label class="option"><input type="radio" name="q3" value="Obtús">Obtús</label>
+<label class="option"><input type="radio" name="q3" value="Agut">Agut</label>
+<label class="option"><input type="radio" name="q3" value="Recte">Recte</label>
+<label class="option"><input type="radio" name="q3" value="Pla">Pla</label>
+</div><div class="feedback">És més gran que 90° i menor que 180°.</div>
+</article>
+
+<article class="q" data-answer="180°">
+<h3>4. Quant mesura un angle pla?</h3>
+<div class="options">
+<label class="option"><input type="radio" name="q4" value="180°">180°</label>
+<label class="option"><input type="radio" name="q4" value="90°">90°</label>
+<label class="option"><input type="radio" name="q4" value="360°">360°</label>
+<label class="option"><input type="radio" name="q4" value="45°">45°</label>
+</div><div class="feedback">Un angle pla forma una línia recta i mesura 180°.</div>
+</article>
+
+<article class="q" data-answer="Agut">
+<h3>5. Si un angle mesura 89°, és...</h3>
+<div class="options">
+<label class="option"><input type="radio" name="q5" value="Agut">Agut</label>
+<label class="option"><input type="radio" name="q5" value="Recte">Recte</label>
+<label class="option"><input type="radio" name="q5" value="Obtús">Obtús</label>
+<label class="option"><input type="radio" name="q5" value="Pla">Pla</label>
+</div><div class="feedback">89° encara és menor que 90°.</div>
+</article>
+
+<article class="q" data-answer="Obtús">
+<h3>6. Si un angle mesura 91°, és...</h3>
+<div class="options">
+<label class="option"><input type="radio" name="q6" value="Obtús">Obtús</label>
+<label class="option"><input type="radio" name="q6" value="Agut">Agut</label>
+<label class="option"><input type="radio" name="q6" value="Recte">Recte</label>
+<label class="option"><input type="radio" name="q6" value="Pla">Pla</label>
+</div><div class="feedback">91° és més gran que 90° i menor que 180°.</div>
+</article>
+
+<article class="q" data-answer="60°">
+<h3>7. Si un costat coincideix amb 0° del transportador i l’altre passa per 60°, quant mesura l’angle?</h3>
+<div class="options">
+<label class="option"><input type="radio" name="q7" value="60°">60°</label>
+<label class="option"><input type="radio" name="q7" value="120°">120°</label>
+<label class="option"><input type="radio" name="q7" value="30°">30°</label>
+<label class="option"><input type="radio" name="q7" value="90°">90°</label>
+</div><div class="feedback">Cal llegir l’escala que comença en el 0° alineat amb el primer costat.</div>
+</article>
+
+<article class="q" data-answer="180°">
+<h3>8. Quant sumen un angle de 150° i un angle de 30°?</h3>
+<div class="options">
+<label class="option"><input type="radio" name="q8" value="180°">180°</label>
+<label class="option"><input type="radio" name="q8" value="120°">120°</label>
+<label class="option"><input type="radio" name="q8" value="90°">90°</label>
+<label class="option"><input type="radio" name="q8" value="360°">360°</label>
+</div><div class="feedback">150° + 30° = 180°.</div>
+</article>
+
+<article class="q" data-answer="135°">
+<h3>9. Quin angle és més gran?</h3>
+<div class="options">
+<label class="option"><input type="radio" name="q9" value="135°">135°</label>
+<label class="option"><input type="radio" name="q9" value="95°">95°</label>
+<label class="option"><input type="radio" name="q9" value="89°">89°</label>
+<label class="option"><input type="radio" name="q9" value="45°">45°</label>
+</div><div class="feedback">135° és la mesura més gran.</div>
+</article>
+
+<article class="q" data-answer="Un angle agut mesura menys de 90°">
+<h3>10. Quina afirmació és correcta?</h3>
+<div class="options">
+<label class="option"><input type="radio" name="q10" value="Un angle agut mesura menys de 90°">Un angle agut mesura menys de 90°</label>
+<label class="option"><input type="radio" name="q10" value="Un angle obtús mesura menys de 90°">Un angle obtús mesura menys de 90°</label>
+<label class="option"><input type="radio" name="q10" value="Un angle recte mesura 180°">Un angle recte mesura 180°</label>
+<label class="option"><input type="radio" name="q10" value="Un angle pla mesura 90°">Un angle pla mesura 90°</label>
+</div><div class="feedback">Els angles aguts són menors de 90°.</div>
+</article>
+
+<article class="q" data-answer="55°">
+<h3>11. Observa el dibuix. Aproximadament, quin angle representa?</h3>
+<div class="anglebox">
+<svg viewBox="0 0 300 160" width="300" height="160">
+<line x1="150" y1="125" x2="270" y2="125" stroke="#173b63" stroke-width="6"/>
+<line x1="150" y1="125" x2="210" y2="39" stroke="#173b63" stroke-width="6"/>
+<circle cx="150" cy="125" r="6" fill="#173b63"/>
+</svg>
+</div>
+<div class="options">
+<label class="option"><input type="radio" name="q11" value="55°">55°</label>
+<label class="option"><input type="radio" name="q11" value="125°">125°</label>
+<label class="option"><input type="radio" name="q11" value="90°">90°</label>
+<label class="option"><input type="radio" name="q11" value="180°">180°</label>
+</div><div class="feedback">És aproximadament un angle de 55°.</div>
+</article>
+
+<article class="q" data-answer="110°">
+<h3>12. Observa el dibuix. Aproximadament, quin angle representa?</h3>
+<div class="anglebox">
+<svg viewBox="0 0 300 160" width="300" height="160">
+<line x1="150" y1="125" x2="270" y2="125" stroke="#173b63" stroke-width="6"/>
+<line x1="150" y1="125" x2="114" y2="26" stroke="#173b63" stroke-width="6"/>
+<circle cx="150" cy="125" r="6" fill="#173b63"/>
+</svg>
+</div>
+<div class="options">
+<label class="option"><input type="radio" name="q12" value="110°">110°</label>
+<label class="option"><input type="radio" name="q12" value="70°">70°</label>
+<label class="option"><input type="radio" name="q12" value="90°">90°</label>
+<label class="option"><input type="radio" name="q12" value="45°">45°</label>
+</div><div class="feedback">És aproximadament un angle obtús de 110°.</div>
+</article>
+
+<article class="q" data-answer="90°">
+<h3>13. Observa el dibuix. Quin angle representa?</h3>
+<div class="anglebox">
+<svg viewBox="0 0 300 160" width="300" height="160">
+<line x1="150" y1="125" x2="270" y2="125" stroke="#173b63" stroke-width="6"/>
+<line x1="150" y1="125" x2="150" y2="20" stroke="#173b63" stroke-width="6"/>
+<circle cx="150" cy="125" r="6" fill="#173b63"/>
+</svg>
+</div>
+<div class="options">
+<label class="option"><input type="radio" name="q13" value="90°">90°</label>
+<label class="option"><input type="radio" name="q13" value="180°">180°</label>
+<label class="option"><input type="radio" name="q13" value="45°">45°</label>
+<label class="option"><input type="radio" name="q13" value="120°">120°</label>
+</div><div class="feedback">Els costats són perpendiculars: és un angle recte.</div>
+</article>
+
+<article class="q" data-answer="Sobre el vèrtex">
+<h3>14. On has de col·locar el centre del transportador per mesurar un angle?</h3>
+<div class="options">
+<label class="option"><input type="radio" name="q14" value="Sobre el vèrtex">Sobre el vèrtex</label>
+<label class="option"><input type="radio" name="q14" value="Sobre qualsevol punt">Sobre qualsevol punt</label>
+<label class="option"><input type="radio" name="q14" value="Al final del costat">Al final del costat</label>
+<label class="option"><input type="radio" name="q14" value="Fora de l’angle">Fora de l’angle</label>
+</div><div class="feedback">El centre del transportador s’ha d’alinear amb el vèrtex.</div>
+</article>
+
+<article class="q" data-answer="Llegir l’escala que comença en aquell 0°">
+<h3>15. Si un costat de l’angle està alineat amb la marca de 0°, què has de fer després?</h3>
+<div class="options">
+<label class="option"><input type="radio" name="q15" value="Llegir l’escala que comença en aquell 0°">Llegir l’escala que comença en aquell 0°</label>
+<label class="option"><input type="radio" name="q15" value="Començar sempre per 180°">Començar sempre per 180°</label>
+<label class="option"><input type="radio" name="q15" value="Sumar 90°">Sumar 90°</label>
+<label class="option"><input type="radio" name="q15" value="Llegir qualsevol escala">Llegir qualsevol escala</label>
+</div><div class="feedback">Cal usar l’escala que comença en el 0° alineat amb el costat inicial.</div>
+</article>
+
+<div class="actions">
+<button type="button" id="check" class="primary">✅ Corregeix la prova</button>
+<button type="reset" id="retry" class="secondary">🔄 Tornar-la a fer</button>
+</div>
+</form>
+
+<div id="result" class="result" aria-live="polite"></div>
+<p class="small" style="text-align:center">Sense registre ni contrasenya. Les dades no s’envien a cap servidor.</p>
+</div>
+
+<script>
+(function(){
+const form=document.getElementById('quiz');
+const cards=[...document.querySelectorAll('.q')];
+const count=document.getElementById('count');
+const result=document.getElementById('result');
+
+function update(){
+ let n=0;
+ cards.forEach((c,i)=>{if(form.querySelector('input[name="q'+(i+1)+'"]:checked')) n++;});
+ count.textContent=n+' de '+cards.length+' respostes';
+}
+form.addEventListener('change',update);
+
+document.getElementById('check').addEventListener('click',function(){
+ let score=0;
+ cards.forEach((card,i)=>{
+   const answer=card.dataset.answer;
+   const selected=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+   const feedback=card.querySelector('.feedback');
+   card.classList.remove('correct','wrong');
+   if(selected && selected.value===answer){
+      score++;
+      card.classList.add('correct');
+      feedback.textContent='✅ Correcte! '+feedback.textContent;
+   }else{
+      card.classList.add('wrong');
+      feedback.textContent='❌ Resposta correcta: '+answer+'. '+feedback.textContent;
+   }
+   feedback.classList.add('show');
+ });
+ const pct=Math.round(score/cards.length*100);
+ result.style.display='block';
+ result.textContent='Has encertat '+score+' de '+cards.length+' ('+pct+'%).';
+ result.scrollIntoView({behavior:'smooth',block:'center'});
+});
+
+document.getElementById('retry').addEventListener('click',function(){
+ cards.forEach(card=>{
+   card.classList.remove('correct','wrong');
+   card.querySelector('.feedback').classList.remove('show');
+ });
+ result.style.display='none';
+ setTimeout(update,0);
+ window.scrollTo({top:0,behavior:'smooth'});
+});
+update();
+})();
+</script>
+</body>
+</html>
