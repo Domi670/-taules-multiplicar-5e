@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#5b3f8c">
+<title>Repassem el tema 2 · Matemàtiques 5è</title>
+<style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#263456;background:#f5f3fb}
+*{box-sizing:border-box}body{margin:0}
+header{background:linear-gradient(120deg,#52397e,#8064b5);color:white;padding:28px 18px 42px}
+main{max-width:880px;margin:-25px auto 60px;padding:0 15px}
+.eyebrow{font-size:.82rem;letter-spacing:.12em;font-weight:850;color:#e3d8ff}
+h1{font-size:clamp(1.8rem,5vw,2.8rem);margin:8px 0}h2{font-size:1.25rem;margin:0 0 8px}
+.intro{opacity:.95;max-width:780px}
+.panel,.question,.finish{background:white;border:1px solid #e3ddf0;border-radius:20px;padding:22px;margin-bottom:17px;box-shadow:0 6px 22px #412b6a0b}
+.selector,.rounds{display:flex;gap:9px;flex-wrap:wrap}
+.level,.round{appearance:none;border:2px solid #ded5ef;background:#faf8ff;border-radius:12px;padding:11px 15px;font-weight:800;color:#52397e;cursor:pointer}
+.level.active,.round.active{border-color:#7451b2;background:#efe8ff}
+.round.done{border-color:#68a77b;background:#edf8f0;color:#26613a}
+.muted{color:#66738a;font-size:.95rem}.small{font-size:.85rem}
+.progress{height:10px;background:#e9e3f2;border-radius:10px;overflow:hidden;margin-top:12px}
+.progress>div{height:100%;background:#44a58b;width:0;transition:width .2s}
+.pill{display:inline-block;border-radius:99px;background:#eee8fb;color:#5c43a0;padding:5px 11px;font-weight:800;font-size:.79rem;margin-bottom:11px}
+.question h3{font-size:1.08rem;line-height:1.48;margin:0 0 15px}
+.answers{display:grid;gap:10px}
+.option{display:flex;align-items:center;gap:12px;border:2px solid #e2ddec;border-radius:12px;padding:12px;cursor:pointer;line-height:1.4}
+.option.selected{border-color:#7d5fc0;background:#f5f1ff}
+.option input{width:20px;height:20px;accent-color:#6d4daf;flex-shrink:0}
+.feedback{padding:12px 14px;border-radius:11px;margin-top:14px;font-size:.94rem}
+.correct{background:#e8f7ee;border:1px solid #9fd8b3;color:#195a33}
+.wrong{background:#fff0ee;border:1px solid #f2b5a7;color:#883c27}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:0;border-radius:11px;background:#6343a0;color:white;padding:14px 19px;font:inherit;font-weight:850;cursor:pointer}
+.btn.secondary{background:#eee9f8;color:#4d367c}.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{font-size:1.65rem;font-weight:900;color:#5b3f8c}.hidden{display:none!important}
+.topic-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:14px}
+.topic{background:#faf8ff;border:1px solid #e5def2;border-radius:12px;padding:9px;text-align:center;font-size:.78rem;font-weight:800}
+footer{text-align:center;color:#6b7890;padding:15px;font-size:.85rem}
+@media(max-width:620px){.panel,.question,.finish{padding:16px}.topic-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header><div style="max-width:880px;margin:auto">
+<div class="eyebrow">REPÀS INTERACTIU · 5È DE PRIMÀRIA</div>
+<h1>🧭 Missió: dominar el tema 2</h1>
+<p class="intro">Angles, temps i sistema sexagesimal, girs, diagrames de sectors i patrons. Completa les 4 rondes del teu nivell i comprova cada ronda al final.</p>
+</div></header>
+
+<main>
+<section class="panel">
+<h2>1. Tria el nivell</h2>
+<div class="selector">
+<button class="level" data-level="suport" type="button">🌱 Suport</button>
+<button class="level active" data-level="normal" type="button">⭐ Normal</button>
+<button class="level" data-level="repte" type="button">🔥 Repte</button>
+</div>
+<p class="muted" id="levelDesc"></p>
+
+<div class="topic-grid">
+<div class="topic">📐 Angles</div><div class="topic">⏱️ Temps</div><div class="topic">🔄 Girs</div>
+<div class="topic">🥧 Sectors</div><div class="topic">🔁 Patrons</div>
+</div>
+
+<h2 style="margin-top:22px">2. Tria la ronda</h2>
+<div class="rounds">
+<button class="round active" data-round="0" type="button">Ronda 1</button>
+<button class="round" data-round="1" type="button">Ronda 2</button>
+<button class="round" data-round="2" type="button">Ronda 3</button>
+<button class="round" data-round="3" type="button">Ronda 4</button>
+</div>
+
+<div id="progressText" class="muted" style="margin-top:17px" aria-live="polite"></div>
+<div class="progress"><div id="progressFill"></div></div>
+</section>
+
+<section id="questions" aria-label="Preguntes"></section>
+
+<section class="finish">
+<div class="actions">
+<button class="btn" id="check" type="button">✅ Comprova la ronda</button>
+<button class="btn secondary" id="retry" type="button">🔄 Repetir aquesta ronda</button>
+</div>
+<div id="results" class="hidden" tabindex="-1" aria-live="polite"></div>
+<p class="muted small" style="margin-bottom:0">Sense registre ni contrasenya. La correcció es fa al dispositiu i només apareix quan prems «Comprova la ronda».</p>
+</section>
+</main>
+
+<footer>Matemàtiques de 5è · Tema 2 · 3 nivells · 4 rondes per nivell</footer>
+
+<script>
+'use strict';
+var banks={"suport": [["Angles", "Un angle que mesura menys de 90° és...", ["agut", "recte", "obtús"], "agut", "Un angle agut mesura menys de 90°."], ["Angles", "Quants graus mesura un angle recte?", ["45°", "90°", "180°"], "90°", "Un angle recte mesura 90°."], ["Temps", "Quants minuts té 1 hora?", ["60", "100", "24"], "60", "1 hora = 60 minuts."], ["Temps", "Quants segons té 1 minut?", ["60", "100", "30"], "60", "1 minut = 60 segons."], ["Girs", "Un quart de volta correspon a...", ["90°", "180°", "360°"], "90°", "Un quart de volta són 90°."], ["Sectors", "La suma dels angles d’un diagrama de sectors és...", ["180°", "360°", "100°"], "360°", "Un cercle complet mesura 360°."], ["Angles", "Un angle que mesura més de 90° és...", ["agut", "recte", "obtús"], "obtús", "Un angle obtús mesura més de 90°."], ["Temps", "2 hores són...", ["60 min", "120 min", "180 min"], "120 min", "2 × 60 = 120 minuts."], ["Temps", "120 segons són...", ["1 min", "2 min", "12 min"], "2 min", "120 ÷ 60 = 2 minuts."], ["Girs", "Mitja volta correspon a...", ["90°", "180°", "270°"], "180°", "Mitja volta són 180°."], ["Sectors", "La suma dels percentatges d’un diagrama de sectors és...", ["50%", "100%", "360%"], "100%", "El total sempre és el 100%."], ["Patrons", "Continua la sèrie: 30, 60, 90, 120, ...", ["130", "150", "180"], "150", "El patró és +30."], ["Angles", "Quin instrument fem servir per mesurar angles?", ["regle", "transportador", "rellotge"], "transportador", "Els angles es mesuren amb el transportador."], ["Temps", "1 dia té...", ["12 hores", "24 hores", "60 hores"], "24 hores", "1 dia = 24 hores."], ["Girs", "Una volta completa correspon a...", ["180°", "270°", "360°"], "360°", "Una volta completa són 360°."], ["Sectors", "La meitat d’un cercle representa...", ["25%", "50%", "75%"], "50%", "La meitat d’un total és el 50%."], ["Sectors", "Un quart de cercle representa...", ["10%", "25%", "40%"], "25%", "Un quart és el 25%."], ["Patrons", "Continua: groc, blau, groc, blau, ...", ["groc", "verd", "vermell"], "groc", "El patró alterna groc i blau."], ["Angles", "45° és un angle...", ["agut", "recte", "obtús"], "agut", "45° és menor que 90°."], ["Temps", "180 minuts són...", ["2 hores", "3 hores", "4 hores"], "3 hores", "180 ÷ 60 = 3 hores."], ["Girs", "Tres quarts de volta són...", ["180°", "270°", "360°"], "270°", "3 × 90° = 270°."], ["Sectors", "Si un sector ocupa tot el cercle, representa...", ["50%", "75%", "100%"], "100%", "Tot el cercle representa el 100%."], ["Patrons", "Continua: → → ↑ ↑ → → ...", ["↑", "→", "↓"], "↑", "El patró repeteix dues fletxes dreta i dues amunt."], ["Girs", "Si un objecte gira 360°, queda...", ["al contrari", "com estava", "a 90°"], "com estava", "Un gir de 360° torna a la posició inicial."]], "normal": [["Angles", "Quina classificació correspon a un angle de 120°?", ["agut", "recte", "obtús"], "obtús", "120° és més gran que 90°."], ["Angles", "Quina classificació correspon a un angle de 75°?", ["agut", "recte", "obtús"], "agut", "75° és menor que 90°."], ["Temps", "3 hores i 30 minuts són...", ["180 min", "210 min", "330 min"], "210 min", "3 × 60 + 30 = 210 minuts."], ["Temps", "240 segons són...", ["3 min", "4 min", "6 min"], "4 min", "240 ÷ 60 = 4 minuts."], ["Girs", "Dos girs consecutius de 90° equivalen a...", ["90°", "180°", "270°"], "180°", "90° + 90° = 180°."], ["Sectors", "Un sector de 90° representa...", ["20%", "25%", "50%"], "25%", "90° és la quarta part de 360°."], ["Angles", "Quin angle és més gran?", ["85°", "90°", "105°"], "105°", "105° és el valor més gran."], ["Temps", "1 hora i 45 minuts són...", ["95 min", "105 min", "145 min"], "105 min", "60 + 45 = 105 minuts."], ["Temps", "2 minuts i 30 segons són...", ["120 s", "150 s", "230 s"], "150 s", "2 × 60 + 30 = 150 segons."], ["Girs", "Si mires cap al nord i gires 90° a la dreta, mires cap a...", ["oest", "est", "sud"], "est", "Un quart de volta a la dreta des del nord porta a l’est."], ["Sectors", "Un sector de 180° representa...", ["25%", "50%", "75%"], "50%", "180° és la meitat de 360°."], ["Patrons", "Continua: 30°, 60°, 90°, 120°, ...", ["130°", "150°", "180°"], "150°", "El patró és +30°."], ["Angles", "Un angle de 90° és...", ["agut", "recte", "obtús"], "recte", "Exactament 90° és un angle recte."], ["Temps", "5 hores són...", ["250 min", "300 min", "500 min"], "300 min", "5 × 60 = 300 minuts."], ["Girs", "De la posició 2 a la 6 en una ruleta de 8 sectors iguals, avançant pel camí més curt, quin gir fem?", ["90°", "180°", "270°"], "180°", "En 8 sectors, cada sector fa 45°; quatre salts fan 180°."], ["Sectors", "Un sector de 72° representa...", ["10%", "20%", "25%"], "20%", "72 ÷ 360 = 0,2 = 20%."], ["Sectors", "El 40% d’un cercle ocupa...", ["120°", "144°", "160°"], "144°", "0,40 × 360 = 144°."], ["Patrons", "Continua la sèrie de colors: blau, vermell, groc, verd, blau, vermell, ...", ["verd", "groc", "blau"], "groc", "Es repeteix el bloc de quatre colors."], ["Angles", "Si un ventall forma un angle de 180°, està...", ["mig obert", "completament estès en línia recta", "tancat"], "completament estès en línia recta", "180° forma un angle pla."], ["Temps", "90 minuts equivalen a...", ["1 h 30 min", "1 h 90 min", "2 h 30 min"], "1 h 30 min", "60 min + 30 min = 90 min."], ["Girs", "Si gires 270° en sentit horari, és equivalent a girar...", ["90° antihorari", "180° antihorari", "270° antihorari"], "90° antihorari", "270° horari deixa la mateixa posició que 90° antihorari."], ["Sectors", "En un grup de 12 amics, 6 trien una opció. Quin percentatge representa?", ["25%", "50%", "75%"], "50%", "6 de 12 és la meitat."], ["Sectors", "En un grup de 12 amics, 3 trien una opció. Quin angle ocupa el sector?", ["60°", "90°", "120°"], "90°", "3 de 12 és 1/4; 1/4 de 360° = 90°."], ["Patrons", "Continua: →, ↑, ←, ↓, →, ...", ["↑", "←", "↓"], "↑", "La fletxa gira 90° en sentit antihorari a cada pas."]], "repte": [["Angles", "Dos angles mesuren 45° i 75°. Quants graus sumen?", ["110°", "120°", "130°"], "120°", "45° + 75° = 120°."], ["Angles", "Quants graus falten a 130° per arribar a 180°?", ["40°", "50°", "60°"], "50°", "180° − 130° = 50°."], ["Temps", "2 h 15 min són...", ["125 min", "135 min", "215 min"], "135 min", "2 × 60 + 15 = 135 minuts."], ["Temps", "7.200 segons són...", ["1 hora", "2 hores", "3 hores"], "2 hores", "7.200 ÷ 60 = 120 min = 2 h."], ["Girs", "Tres girs de 90° i un de 45° sumen...", ["270°", "315°", "360°"], "315°", "90 + 90 + 90 + 45 = 315°."], ["Sectors", "Un sector del 35% ocupa...", ["116°", "126°", "136°"], "126°", "0,35 × 360 = 126°."], ["Angles", "Un angle obtús de 140° gira 40° més. Quin angle total s’ha recorregut?", ["160°", "170°", "180°"], "180°", "140° + 40° = 180°."], ["Temps", "3 h 20 min 30 s són quants segons?", ["11.430 s", "12.030 s", "12.300 s"], "12.030 s", "3×3600 + 20×60 + 30 = 12.030 s."], ["Temps", "5.400 segons equivalen a...", ["1 h 15 min", "1 h 30 min", "2 h"], "1 h 30 min", "5.400 s = 90 min = 1 h 30 min."], ["Girs", "Una ruleta té 8 sectors iguals. Quants graus ocupa cada sector?", ["30°", "45°", "60°"], "45°", "360° ÷ 8 = 45°."], ["Sectors", "En un diagrama, 50% + 25% + 12,5% ja estan ocupats. Quin percentatge falta?", ["10%", "12,5%", "25%"], "12,5%", "100 − 87,5 = 12,5%."], ["Patrons", "Continua: 15°, 45°, 75°, 105°, ...", ["120°", "135°", "150°"], "135°", "El patró és +30°."], ["Angles", "Quina afirmació és certa?", ["Tot angle obtús és més gran que 180°", "Tot angle agut és menor que 90°", "Tot angle recte és menor que 90°"], "Tot angle agut és menor que 90°", "Aquesta és la definició d’angle agut."], ["Temps", "1 dia, 2 hores i 30 minuts són...", ["1.470 min", "1.590 min", "1.650 min"], "1.590 min", "24 h = 1.440 min; +120 +30 = 1.590 min."], ["Girs", "Si una fletxa apunta a l’est i gira 225° en sentit antihorari, cap a quina direcció intermèdia apunta?", ["nord-est", "sud-oest", "nord-oest"], "sud-oest", "225° antihorari des de l’est acaba al sud-oest."], ["Sectors", "Un sector mesura 54°. Quin percentatge representa?", ["12%", "15%", "18%"], "15%", "54 ÷ 360 = 0,15 = 15%."], ["Sectors", "En un diagrama de 10.000 turistes, un sector del 12,5% representa...", ["1.000", "1.250", "2.500"], "1.250", "12,5% de 10.000 = 1.250."], ["Patrons", "Una sèrie alterna groc/blau. Si el 6è és blau, de quin color és l’11è?", ["blau", "groc", "verd"], "groc", "Les posicions senars són grogues i les parelles, blaves."], ["Angles", "Un angle de 35° augmenta seguint un patró de +30°. Quin és el quart angle de la sèrie?", ["95°", "105°", "125°"], "125°", "35°, 65°, 95°, 125°."], ["Temps", "Si comencem a les 10:45 i passen 2 h 35 min, quina hora és?", ["13:10", "13:20", "13:30"], "13:20", "10:45 + 2:35 = 13:20."], ["Girs", "Quin és el gir mínim per passar de nord a oest?", ["90°", "180°", "270°"], "90°", "El gir mínim és un quart de volta."], ["Sectors", "Un sector representa 1/3 del cercle. Aproximadament quants graus ocupa?", ["90°", "120°", "180°"], "120°", "360° ÷ 3 = 120°."], ["Sectors", "Dos sectors representen 25% i 40%. Quants graus ocupen junts?", ["216°", "234°", "252°"], "234°", "65% de 360° = 234°."], ["Patrons", "Patró de gir: 0°, 90°, 180°, 270°, 0°... Quina és la 10a posició?", ["0°", "90°", "180°"], "90°", "El patró té 4 posicions; la 10a coincideix amb la 2a: 90°."]]};
+var descriptions={"suport": "4 rondes de 6 activitats guiades i directes.", "normal": "4 rondes de 6 activitats de repàs general del tema 2.", "repte": "4 rondes de 6 activitats amb més càlcul i raonament."};
+var level='normal';
+var round=0;
+var completed={suport:[false,false,false,false],normal:[false,false,false,false],repte:[false,false,false,false]};
+
+function byId(id){return document.getElementById(id);}
+function currentQuestions(){return banks[level].slice(round*6,round*6+6);}
+
+function escapeHtml(v){
+  return String(v).replace(/[&<>"']/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function render(){
+  byId('levelDesc').textContent=descriptions[level];
+
+  var levelButtons=document.getElementsByClassName('level');
+  for(var i=0;i<levelButtons.length;i++){
+    levelButtons[i].classList.toggle('active',levelButtons[i].getAttribute('data-level')===level);
+  }
+
+  var roundButtons=document.getElementsByClassName('round');
+  for(var r=0;r<roundButtons.length;r++){
+    var rb=roundButtons[r];
+    var rn=Number(rb.getAttribute('data-round'));
+    rb.className='round'+(rn===round?' active':'')+(completed[level][rn]?' done':'');
+  }
+
+  var qs=currentQuestions();
+  var htmlOut='';
+  for(var q=0;q<qs.length;q++){
+    var item=qs[q];
+    htmlOut+='<article class="question" id="q'+q+'">';
+    htmlOut+='<div class="pill">Ronda '+(round+1)+' · '+(q+1)+'/6 · '+escapeHtml(item[0])+'</div>';
+    htmlOut+='<h3>'+escapeHtml(item[1])+'</h3><div class="answers">';
+    for(var j=0;j<item[2].length;j++){
+      htmlOut+='<label class="option"><input type="radio" name="q'+q+'" value="'+j+'"><span>'+escapeHtml(item[2][j])+'</span></label>';
+    }
+    htmlOut+='</div><div class="feedback hidden" id="f'+q+'" aria-live="polite"></div></article>';
+  }
+  byId('questions').innerHTML=htmlOut;
+  byId('results').className='hidden';
+  byId('results').innerHTML='';
+  updateProgress();
+}
+
+function updateProgress(){
+  var qs=currentQuestions();
+  var answered=0;
+  for(var i=0;i<qs.length;i++){
+    if(document.querySelector('input[name="q'+i+'"]:checked')) answered++;
+  }
+  byId('progressText').textContent='Ronda '+(round+1)+': '+answered+' de '+qs.length+' preguntes respostes';
+  byId('progressFill').style.width=(answered/qs.length*100)+'%';
+
+  var opts=document.getElementsByClassName('option');
+  for(var k=0;k<opts.length;k++){
+    opts[k].className=opts[k].className.replace(' selected','');
+    var radio=opts[k].getElementsByTagName('input')[0];
+    if(radio && radio.checked) opts[k].className+=' selected';
+  }
+}
+
+function correct(){
+  var qs=currentQuestions();
+  var hits=0, unanswered=0;
+
+  for(var i=0;i<qs.length;i++){
+    var item=qs[i];
+    var checked=document.querySelector('input[name="q'+i+'"]:checked');
+    var answer=checked?item[2][Number(checked.value)]:null;
+    var yes=answer===item[3];
+    if(yes) hits++;
+    if(!checked) unanswered++;
+
+    var f=byId('f'+i);
+    f.className='feedback '+(yes?'correct':'wrong');
+    if(yes){
+      f.innerHTML='✓ <strong>Correcte.</strong> '+escapeHtml(item[4]);
+    } else if(!checked){
+      f.innerHTML='⚠ <strong>Sense respondre.</strong> Resposta correcta: '+escapeHtml(item[3])+'. '+escapeHtml(item[4]);
+    } else {
+      f.innerHTML='✗ <strong>Encara no.</strong> Resposta correcta: '+escapeHtml(item[3])+'. '+escapeHtml(item[4]);
+    }
+  }
+
+  completed[level][round]=true;
+  var score=Math.round(hits/qs.length*100);
+  var points=(hits/qs.length*10).toLocaleString('ca-ES',{maximumFractionDigits:1});
+  var msg=score===100?'Fantàstic! Ronda perfecta!':score>=75?'Molt bé! Tens aquesta ronda gairebé dominada.':score>=50?'Vas bé. Repassa les explicacions abans de continuar.':'Convé repetir aquesta ronda abans de passar a la següent.';
+
+  var res=byId('results');
+  res.innerHTML='<hr style="border:0;border-top:1px solid #e3ddf0;margin:21px 0"><div class="result">'+hits+' de '+qs.length+' correctes · '+points+'/10</div><h2>'+msg+'</h2>'+(unanswered?'<p class="muted">Has deixat '+unanswered+' preguntes sense respondre.</p>':'')+'<div class="actions" style="margin-top:14px">'+(round<3?'<button type="button" class="btn" id="nextRound">➡️ Anar a la ronda '+(round+2)+'</button>':'<button type="button" class="btn" id="finishLevel">🏁 Veure el progrés del nivell</button>')+'</div>';
+  res.className='';
+  renderRoundButtons();
+
+  if(round<3){
+    byId('nextRound').onclick=function(){round++;render();window.scrollTo(0,0);};
+  } else {
+    byId('finishLevel').onclick=function(){
+      var done=completed[level].filter(Boolean).length;
+      res.innerHTML='<hr style="border:0;border-top:1px solid #e3ddf0;margin:21px 0"><div class="result">'+done+' de 4 rondes completades</div><h2>'+(done===4?'🎉 Nivell completat!':'Encara et queda alguna ronda.')+'</h2>';
+    };
+  }
+
+  try{res.focus();res.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}
+}
+
+function renderRoundButtons(){
+  var roundButtons=document.getElementsByClassName('round');
+  for(var r=0;r<roundButtons.length;r++){
+    var rb=roundButtons[r];
+    var rn=Number(rb.getAttribute('data-round'));
+    rb.className='round'+(rn===round?' active':'')+(completed[level][rn]?' done':'');
+  }
+}
+
+byId('questions').addEventListener('change',updateProgress);
+
+var lbs=document.getElementsByClassName('level');
+for(var i=0;i<lbs.length;i++){
+  lbs[i].onclick=function(){
+    level=this.getAttribute('data-level');
+    round=0;
+    render();
+    window.scrollTo(0,0);
+  };
+}
+
+var rbs=document.getElementsByClassName('round');
+for(var r=0;r<rbs.length;r++){
+  rbs[r].onclick=function(){
+    round=Number(this.getAttribute('data-round'));
+    render();
+    window.scrollTo(0,0);
+  };
+}
+
+byId('check').onclick=function(){
+  try{correct();}catch(e){alert('Error en corregir: '+e.message);}
+};
+byId('retry').onclick=function(){render();window.scrollTo(0,0);};
+
+render();
+</script>
+</body>
+</html>
