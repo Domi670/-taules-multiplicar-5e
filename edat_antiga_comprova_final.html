@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>L’Edat Antiga · 5è</title>
+<style>
+:root{--navy:#183a61;--line:#d8e5ee;--green:#eaf8ee;--red:#fff0f0;--yellow:#fff0a8;--muted:#607887}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(#fbf1dc,#f9fcfe 360px);color:var(--navy)}
+.wrap{max-width:920px;margin:auto;padding:14px 12px 55px}
+.hero{background:linear-gradient(135deg,#f2cf87,#d8eef8);border:3px solid #fff;border-radius:28px;padding:22px;text-align:center}
+.tag{display:inline-block;background:#fff8dc;border-radius:999px;padding:8px 15px;font-weight:900}
+h1{font-size:clamp(34px,7vw,54px);margin:10px 0 5px}
+.panel,.q{background:#fff;border:2px solid var(--line);border-radius:20px;padding:17px;margin:14px 0}
+.q.correct{background:var(--green);border-color:#84cf94}
+.q.wrong{background:var(--red);border-color:#ed9e9e}
+.q h3{margin:0 0 12px;font-size:19px;line-height:1.35}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.option{display:flex;align-items:center;gap:10px;border:2px solid #d9e8ee;border-radius:13px;padding:12px;background:#fff;font-weight:800}
+.option.selected{border-color:#c89a34;background:#fff9e9}
+.option.good{border-color:#75c889;background:#effaf2}
+.option.bad{border-color:#e58f8f;background:#fff3f3}
+input[type=radio]{width:22px;height:22px;accent-color:#c88e22;flex:none}
+.feedback{display:none;margin-top:10px;font-weight:800;line-height:1.4}
+.feedback.show{display:block}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:20px 0}
+button{border:0;border-radius:999px;padding:14px 22px;font-size:18px;font-weight:900}
+.primary{background:var(--navy);color:#fff}
+.secondary{background:var(--yellow);color:var(--navy)}
+.result{display:none;padding:18px;border-radius:18px;text-align:center;font-size:22px;font-weight:900;background:#fff7d8}
+.small{font-size:14px;color:var(--muted)}
+@media(max-width:680px){.options{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero">
+<div class="tag">MEDI · 5è · AUTOCORREGIBLE</div>
+<h1>🏺 L’EDAT ANTIGA</h1>
+<p><b>Pobles i civilitzacions de la península Ibèrica</b></p>
+</section>
+
+<section class="panel">
+<p>Respon les 15 preguntes. <b>La correcció només apareixerà al final</b>, quan premis <b>Comprova les respostes</b>.</p>
+<div id="count" class="small">0 de 15 respostes</div>
+</section>
+
+<form id="quiz" autocomplete="off">
+<article class="q" data-answer="Est i sud de la península Ibèrica"><h3>1. On vivien principalment els ibers?</h3><div class="options"><label class="option"><input type="radio" name="q1" value="Est i sud de la península Ibèrica"><span>Est i sud de la península Ibèrica</span></label><label class="option"><input type="radio" name="q1" value="Interior, nord i oest"><span>Interior, nord i oest</span></label><label class="option"><input type="radio" name="q1" value="Només a les illes Balears"><span>Només a les illes Balears</span></label><label class="option"><input type="radio" name="q1" value="Nord d’Àfrica"><span>Nord d’Àfrica</span></label></div><div class="feedback">Els ibers vivien sobretot a l’est i al sud de la península Ibèrica.</div></article><article class="q" data-answer="Castres"><h3>2. Com s’anomenaven els poblats fortificats dels celtes al nord-oest?</h3><div class="options"><label class="option"><input type="radio" name="q2" value="Castres"><span>Castres</span></label><label class="option"><input type="radio" name="q2" value="Polis"><span>Polis</span></label><label class="option"><input type="radio" name="q2" value="Colònies"><span>Colònies</span></label><label class="option"><input type="radio" name="q2" value="Províncies"><span>Províncies</span></label></div><div class="feedback">Els celtes construïen poblats fortificats anomenats castres.</div></article><article class="q" data-answer="L’alfabet i tècniques com el torn de terrisser"><h3>3. Quina aportació van difondre els fenicis?</h3><div class="options"><label class="option"><input type="radio" name="q3" value="L’alfabet i tècniques com el torn de terrisser"><span>L’alfabet i tècniques com el torn de terrisser</span></label><label class="option"><input type="radio" name="q3" value="El llatí i el dret"><span>El llatí i el dret</span></label><label class="option"><input type="radio" name="q3" value="Els castres"><span>Els castres</span></label><label class="option"><input type="radio" name="q3" value="Les calçades romanes"><span>Les calçades romanes</span></label></div><div class="feedback">Els fenicis van difondre l’alfabet i tècniques com el torn de terrisser.</div></article><article class="q" data-answer="Empòrion i Rhode"><h3>4. Quines colònies gregues apareixen al resum?</h3><div class="options"><label class="option"><input type="radio" name="q4" value="Empòrion i Rhode"><span>Empòrion i Rhode</span></label><label class="option"><input type="radio" name="q4" value="Gadir i Malaka"><span>Gadir i Malaka</span></label><label class="option"><input type="radio" name="q4" value="Tàrraco i Cartago Nova"><span>Tàrraco i Cartago Nova</span></label><label class="option"><input type="radio" name="q4" value="Roma i Atenes"><span>Roma i Atenes</span></label></div><div class="feedback">Les colònies gregues citades són Empòrion (Empúries) i Rhode (Roses).</div></article><article class="q" data-answer="Cartago, al nord d’Àfrica"><h3>5. Quin era l’origen dels cartaginesos?</h3><div class="options"><label class="option"><input type="radio" name="q5" value="Cartago, al nord d’Àfrica"><span>Cartago, al nord d’Àfrica</span></label><label class="option"><input type="radio" name="q5" value="Grècia"><span>Grècia</span></label><label class="option"><input type="radio" name="q5" value="Roma"><span>Roma</span></label><label class="option"><input type="radio" name="q5" value="La península Ibèrica"><span>La península Ibèrica</span></label></div><div class="feedback">Els cartaginesos procedien de Cartago, al nord d’Àfrica.</div></article><article class="q" data-answer="218 aC"><h3>6. En quin any van desembarcar els romans a Empúries?</h3><div class="options"><label class="option"><input type="radio" name="q6" value="218 aC"><span>218 aC</span></label><label class="option"><input type="radio" name="q6" value="19 aC"><span>19 aC</span></label><label class="option"><input type="radio" name="q6" value="476 dC"><span>476 dC</span></label><label class="option"><input type="radio" name="q6" value="3500 aC"><span>3500 aC</span></label></div><div class="feedback">Els romans van desembarcar a Empúries l’any 218 aC.</div></article><article class="q" data-answer="19 aC"><h3>7. Quan es va completar la conquesta romana d’Hispània?</h3><div class="options"><label class="option"><input type="radio" name="q7" value="19 aC"><span>19 aC</span></label><label class="option"><input type="radio" name="q7" value="218 aC"><span>218 aC</span></label><label class="option"><input type="radio" name="q7" value="476 dC"><span>476 dC</span></label><label class="option"><input type="radio" name="q7" value="VI aC"><span>VI aC</span></label></div><div class="feedback">La conquesta romana d’Hispània es va completar l’any 19 aC.</div></article><article class="q" data-answer="Procés pel qual els pobles conquerits van adoptar la llengua, les lleis, els costums i les formes de vida de Roma"><h3>8. Què és la romanització?</h3><div class="options"><label class="option"><input type="radio" name="q8" value="Procés pel qual els pobles conquerits van adoptar la llengua, les lleis, els costums i les formes de vida de Roma"><span>Procés pel qual els pobles conquerits van adoptar la llengua, les lleis, els costums i les formes de vida de Roma</span></label><label class="option"><input type="radio" name="q8" value="Fundació de colònies gregues"><span>Fundació de colònies gregues</span></label><label class="option"><input type="radio" name="q8" value="Expansió dels cartaginesos"><span>Expansió dels cartaginesos</span></label><label class="option"><input type="radio" name="q8" value="Construcció de castres celtes"><span>Construcció de castres celtes</span></label></div><div class="feedback">La romanització és l’adopció de la llengua, les lleis, els costums i les formes de vida de Roma.</div></article><article class="q" data-answer="Llatí"><h3>9. Segons el resum, de quina llengua prové el català?</h3><div class="options"><label class="option"><input type="radio" name="q9" value="Llatí"><span>Llatí</span></label><label class="option"><input type="radio" name="q9" value="Grec"><span>Grec</span></label><label class="option"><input type="radio" name="q9" value="Fenici"><span>Fenici</span></label><label class="option"><input type="radio" name="q9" value="Celta"><span>Celta</span></label></div><div class="feedback">El resum indica que el català prové del llatí.</div></article><article class="q" data-answer="Ramaderia i agricultura"><h3>10. Quines activitats econòmiques destacaven entre els celtes?</h3><div class="options"><label class="option"><input type="radio" name="q10" value="Ramaderia i agricultura"><span>Ramaderia i agricultura</span></label><label class="option"><input type="radio" name="q10" value="Només comerç marítim"><span>Només comerç marítim</span></label><label class="option"><input type="radio" name="q10" value="Mineria i navegació"><span>Mineria i navegació</span></label><label class="option"><input type="radio" name="q10" value="Pesca i filosofia"><span>Pesca i filosofia</span></label></div><div class="feedback">Els celtes practicaven sobretot la ramaderia i l’agricultura.</div></article><article class="q" data-answer="Gadir i Malaka"><h3>11. Quines colònies fenícies apareixen al resum?</h3><div class="options"><label class="option"><input type="radio" name="q11" value="Gadir i Malaka"><span>Gadir i Malaka</span></label><label class="option"><input type="radio" name="q11" value="Empòrion i Rhode"><span>Empòrion i Rhode</span></label><label class="option"><input type="radio" name="q11" value="Tàrraco i Roma"><span>Tàrraco i Roma</span></label><label class="option"><input type="radio" name="q11" value="Ullastret i Atenes"><span>Ullastret i Atenes</span></label></div><div class="feedback">Les colònies fenícies citades són Gadir (Cadis) i Malaka (Màlaga).</div></article><article class="q" data-answer="Ciutats estat anomenades polis"><h3>12. Com s’organitzaven els grecs?</h3><div class="options"><label class="option"><input type="radio" name="q12" value="Ciutats estat anomenades polis"><span>Ciutats estat anomenades polis</span></label><label class="option"><input type="radio" name="q12" value="Províncies romanes"><span>Províncies romanes</span></label><label class="option"><input type="radio" name="q12" value="Tribus sense ciutats"><span>Tribus sense ciutats</span></label><label class="option"><input type="radio" name="q12" value="Castres"><span>Castres</span></label></div><div class="feedback">Els grecs s’organitzaven en ciutats estat anomenades polis.</div></article><article class="q" data-answer="Quart Hadàsht"><h3>13. Quina ciutat clau dels cartaginesos apareix al resum?</h3><div class="options"><label class="option"><input type="radio" name="q13" value="Quart Hadàsht"><span>Quart Hadàsht</span></label><label class="option"><input type="radio" name="q13" value="Empòrion"><span>Empòrion</span></label><label class="option"><input type="radio" name="q13" value="Gadir"><span>Gadir</span></label><label class="option"><input type="radio" name="q13" value="Tàrraco"><span>Tàrraco</span></label></div><div class="feedback">La ciutat clau cartaginesa era Quart Hadàsht, actual Cartagena.</div></article><article class="q" data-answer="Calçades, ponts, aqüeductes i ciutats"><h3>14. Quin llegat romà destaca el resum?</h3><div class="options"><label class="option"><input type="radio" name="q14" value="Calçades, ponts, aqüeductes i ciutats"><span>Calçades, ponts, aqüeductes i ciutats</span></label><label class="option"><input type="radio" name="q14" value="Castres i torques"><span>Castres i torques</span></label><label class="option"><input type="radio" name="q14" value="Torn de terrisser"><span>Torn de terrisser</span></label><label class="option"><input type="radio" name="q14" value="Només temples"><span>Només temples</span></label></div><div class="feedback">El llegat romà inclou el llatí, el dret, les calçades, els ponts, els aqüeductes i les ciutats.</div></article><article class="q" data-answer="476 dC"><h3>15. Quan va caure l’Imperi romà d’Occident i va acabar l’Edat Antiga, segons el resum?</h3><div class="options"><label class="option"><input type="radio" name="q15" value="476 dC"><span>476 dC</span></label><label class="option"><input type="radio" name="q15" value="218 aC"><span>218 aC</span></label><label class="option"><input type="radio" name="q15" value="19 aC"><span>19 aC</span></label><label class="option"><input type="radio" name="q15" value="3500 aC"><span>3500 aC</span></label></div><div class="feedback">El resum situa la caiguda de l’Imperi romà d’Occident l’any 476 dC.</div></article>
+
+<div class="actions">
+<button type="button" id="check" class="primary">✅ Comprova les respostes</button>
+<button type="reset" id="retry" class="secondary">🔄 Tornar-la a fer</button>
+</div>
+</form>
+
+<div id="result" class="result" aria-live="polite"></div>
+<p class="small" style="text-align:center">Sense registre ni contrasenya.</p>
+</div>
+
+<script>
+(function(){
+  var form=document.getElementById('quiz');
+  var cards=document.getElementsByClassName('q');
+  var count=document.getElementById('count');
+  var result=document.getElementById('result');
+  var check=document.getElementById('check');
+  var retry=document.getElementById('retry');
+
+  function update(){
+    var n=0;
+    for(var i=0;i<cards.length;i++){
+      if(form.querySelector('input[name="q'+(i+1)+'"]:checked')) n++;
+    }
+    count.innerHTML=n+' de '+cards.length+' respostes';
+  }
+
+  function selectedStyle(){
+    var labels=document.getElementsByClassName('option');
+    for(var i=0;i<labels.length;i++){
+      labels[i].className=labels[i].className.replace(' selected','').replace(' good','').replace(' bad','');
+      var r=labels[i].getElementsByTagName('input')[0];
+      if(r && r.checked) labels[i].className+=' selected';
+    }
+    update();
+  }
+
+  function correctQuiz(){
+    var score=0;
+    for(var i=0;i<cards.length;i++){
+      var card=cards[i];
+      var answer=card.getAttribute('data-answer');
+      var selected=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+      var feedback=card.getElementsByClassName('feedback')[0];
+      var labels=card.getElementsByClassName('option');
+
+      card.className=card.className.replace(' correct','').replace(' wrong','');
+
+      for(var j=0;j<labels.length;j++){
+        labels[j].className=labels[j].className.replace(' good','').replace(' bad','');
+        var radio=labels[j].getElementsByTagName('input')[0];
+
+        if(radio.value===answer){
+          labels[j].className+=' good';
+        }
+        if(selected && radio===selected && selected.value!==answer){
+          labels[j].className+=' bad';
+        }
+      }
+
+      if(selected && selected.value===answer){
+        score++;
+        card.className+=' correct';
+        feedback.innerHTML='✅ <strong>Correcte!</strong> '+feedback.textContent;
+      } else {
+        card.className+=' wrong';
+        feedback.innerHTML='❌ <strong>Resposta correcta: '+answer+'.</strong> '+feedback.textContent;
+      }
+
+      if(feedback.className.indexOf('show')===-1) feedback.className+=' show';
+    }
+
+    var pct=Math.round(score/cards.length*100);
+    result.style.display='block';
+    result.innerHTML='Has encertat <strong>'+score+' de '+cards.length+'</strong> ('+pct+'%).';
+    result.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+
+  function resetQuiz(){
+    window.setTimeout(function(){
+      for(var i=0;i<cards.length;i++){
+        var card=cards[i];
+        var feedback=card.getElementsByClassName('feedback')[0];
+        card.className=card.className.replace(' correct','').replace(' wrong','');
+        feedback.className=feedback.className.replace(' show','');
+      }
+      var labels=document.getElementsByClassName('option');
+      for(var j=0;j<labels.length;j++){
+        labels[j].className=labels[j].className.replace(' selected','').replace(' good','').replace(' bad','');
+      }
+      result.style.display='none';
+      result.innerHTML='';
+      update();
+      window.scrollTo(0,0);
+    },0);
+  }
+
+  form.addEventListener('change',selectedStyle,false);
+  check.addEventListener('click',correctQuiz,false);
+  retry.addEventListener('click',resetQuiz,false);
+  update();
+})();
+</script>
+</body>
+</html>
